@@ -50,7 +50,7 @@ namespace A875490.Actividad03
                         librodiario.leerlibrodiario();
                         break;
                     case "2":
-                        agregarasiento();
+                        agregarasiento(plandecuentas);
                         break;
                     case "3":
                         foreach (var Cuentas in plandecuentas)
@@ -67,9 +67,9 @@ namespace A875490.Actividad03
             } while (true);
         }
 
-        private static void agregarasiento()
+        private static void agregarasiento(List<Cuentas> plandecuentas)
         {
-            var asiento = Asientos.Ingresar();
+            var asiento = Asientos.Ingresar(plandecuentas);
             
         }
 

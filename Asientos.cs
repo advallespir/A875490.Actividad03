@@ -10,20 +10,29 @@ namespace A875490.Actividad03
     internal class Asientos
     {
         public DateTime Fecha { get; set; }
-        public List<Movimientos> movimientos = new List<Movimientos>();
 
-        internal static Asientos Ingresar()
+
+        public List<Movimientos> movimientos = new List<Movimientos>() { get; set; };
+
+        public Asientos(DateTime fecha, List<Movimientos> movimientos)
+        {
+            Fecha = fecha;
+            Movimientos = movimientos;
+        }
+
+        internal static Asientos Ingresar(List<Cuentas> plandecuentas)
 
         {
             
             DateTime fecha = Validador.ingresodefecha();
-            Console.WriteLine(fecha);
-            Console.ReadLine();
-            //var movimientos = Movimientos.Ingresar();
+            //Console.WriteLine(fecha.ToShortDateString());
+            //Console.ReadLine();
+            var movimiento = Movimientos.Ingresar(plandecuentas);
             
+            movimientos.Add(new Movimientos(movimiento));
 
 
-            return new Asientos();
+            return new Asientos(fecha,movimientos);
         }
     }
 }
