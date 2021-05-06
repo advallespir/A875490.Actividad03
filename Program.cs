@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace A875490.Actividad03
 {
@@ -11,7 +13,18 @@ namespace A875490.Actividad03
             NroAsiento|Fecha|CodigoCuenta|Debe|Haber
             Utilizará el archivo de plan de cuentas adjunto para validar los datos ingresados (recuerde especialmente: Debe = Haber y Activo = Pasivo + PN)
             */
-                        
+
+            /*Crea un folder en AppData\Roaming para guardar el libro diario, o lo lee si esta ahi*/
+
+            var librodiario = new Asiento();
+            librodiario.crearLibroDiario();
+
+
+
+
+
+
+
             do
             {
                 Console.Clear();
@@ -24,13 +37,12 @@ namespace A875490.Actividad03
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        Console.ReadLine();
+                        librodiario.leerlibrodiario();
                         break;
                     case "2":
                         Console.ReadLine();
                         break;
                     case "3":
-                        Console.ReadLine();
                         return;
                     default:
                         break;
