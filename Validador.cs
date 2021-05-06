@@ -60,21 +60,38 @@ namespace A875490.Actividad03
 
         internal static void DebeHaber(DateTime fecha)
         {
-            Console.WriteLine($"       {fecha}       |       Debe       |       Haber       ");
+            Console.WriteLine($"       {fecha.ToShortDateString()}       |            Tipo de Cuenta       |           Nombre           |       Debe       |       Haber");
         }
 
         internal static void Separador()
         {
-            Console.WriteLine("========================================================================================================================================================");
+            Console.WriteLine("=======================================================================================================");
         }
 
         internal static bool PreguntaSiNo(string text)
         {            
             bool valor;
+            string aux;
+            do
+            {
+
+            
                 Console.WriteLine(text);
-                valor = !bool.TryParse(Console.ReadLine().ToLower().Replace("si", "true").Replace("s", "true").Replace("no", "false").Replace("n", "false"),out valor);           
-            return valor;
-        
+            aux = Console.ReadLine().ToLower();
+            if (aux == "si" || aux == "s" )
+            {
+                    valor = true;
+                return valor;
+            }
+
+                if (aux == "no" || aux == "n")
+                {
+                    
+                    valor = false;
+                    return valor;
+                }
+
+            } while (true);
         }       
 
         internal static decimal Monto()

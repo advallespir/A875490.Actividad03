@@ -14,10 +14,10 @@ namespace A875490.Actividad03
 
         public static List<Movimientos> Inserciones  { get; set; }
 
-        public Asientos(DateTime fecha, List<Movimientos> movimientos)
+        public Asientos(DateTime fecha, List<Movimientos> inserciones)
         {
             Fecha = fecha;
-            Inserciones = movimientos;
+            Inserciones = inserciones;
         }
 
         internal static Asientos Ingresar(List<Cuentas> plandecuentas)
@@ -25,21 +25,21 @@ namespace A875490.Actividad03
         {
             List<Movimientos> inserciones = new List<Movimientos>();
             DateTime fecha = Validador.ingresodefecha();
-            Validador.Separador();
-            Validador.DebeHaber(fecha);
-            //Console.WriteLine(fecha.ToShortDateString());
+
+            //Console.WriteLine(fecha.);
             //Console.ReadLine();
             decimal total = 0;
             bool salir = false;
+            Console.Clear();
             do
             {
+                
                 decimal temporal = 0;
 
+                Movimientos movimiento = Movimientos.Ingresar(plandecuentas);
+                inserciones.Add(movimiento);
 
-            Movimientos movimiento = Movimientos.Ingresar(plandecuentas);
-            inserciones.Add(movimiento);
-                        
-
+                mostrarMovimiento(inserciones,fecha);
 
 
                 if (movimiento.TipoMovimiento)
@@ -52,7 +52,7 @@ namespace A875490.Actividad03
                 }
                 total = total + temporal;
 
-                if (temporal==0)
+                if (total == 0)
                 {                                        
                     salir = Validador.PreguntaSiNo("Desea dejar de cargar movimientos al asiento? S/N");
                 }
@@ -60,6 +60,27 @@ namespace A875490.Actividad03
             } while (salir == false);
 
             return new Asientos(fecha, inserciones);
+        }
+
+        private static void mostrarMovimiento(List<Movimientos> inserciones, DateTime fecha)
+        {
+
+            Validador.Separador();
+            Validador.DebeHaber(fecha);
+            foreach (var movimiento in inserciones)
+            {
+                
+                if (!movimiento.TipoMovimiento)
+                {
+                    Console.WriteLine($"                     |       {movimiento.Nombrecuenta}       |       {movimiento.Nombre}       |                               |      ${movimiento.Monto}");
+                }
+                if (movimiento.TipoMovimiento)
+                {
+                    Console.WriteLine($"                     |       {movimiento.Nombrecuenta}       |       {movimiento.Nombre}       |      ${movimiento.Monto}       |");
+                }
+
+            }
+            
         }
 
         internal void MostrarAsiento(Asientos asiento)
