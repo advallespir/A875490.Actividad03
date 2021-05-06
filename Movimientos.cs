@@ -43,7 +43,7 @@ namespace A875490.Actividad03
                 }
             }
            
-
+            //Falta agregar todos los movimientos de un dia, y checkear si suman 0.
             return new Movimientos(codigo, monto, nombre);
             
         }
