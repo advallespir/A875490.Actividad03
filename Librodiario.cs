@@ -8,11 +8,13 @@ using System.IO;
 
 namespace A875490.Actividad03
 {
-    class Asiento
+    class Librodiario
     {
         public string appDataPath { get; set; }
         public string path { get; set; }
         public string pathtxt { get; set; }
+        public decimal monto { get; set; }
+        public DateTime fecha { get; set; }
 
 
 

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace A875490.Actividad03
 {
     class Program
     {
+        static List<Cuentas> plandecuentas = new List<Cuentas>();
         static void Main(string[] args)
         {
             /*Un estudio contable ha contratado a su empresa para la confección de una suite de aplicaciones contables:
@@ -16,14 +20,24 @@ namespace A875490.Actividad03
 
             /*Crea un folder en AppData\Roaming para guardar el libro diario, o lo lee si esta ahi*/
 
-            var librodiario = new Asiento();
+            Librodiario librodiario = new Librodiario();
             librodiario.crearLibroDiario();
+            
 
+         
+            /*Creo los objetos para el plan de cuentas*/
+           
+          
 
-
-
-
-
+          
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "PlanDeCuentas.txt");
+            string[] lines = File.ReadAllLines(filePath);            
+            foreach (string line in lines)
+            {
+                string[] col = line.Split("|");                
+                plandecuentas.Add(new Cuentas(col[0], col[1], col[2]));
+            }     
+         
 
             do
             {
@@ -31,8 +45,9 @@ namespace A875490.Actividad03
                 Console.WriteLine("Bienvenido a estudio contable.");
                 Console.WriteLine("Por favor seleccione alguna de las opciones para operar.");
                 Console.WriteLine("1) Ver libro diario");
-                Console.WriteLine("2) Añadir entrada");
-                Console.WriteLine("3) Salir");
+                Console.WriteLine("2) Añadir asiento");
+                Console.WriteLine("3) Leer plan de cuentas");
+                Console.WriteLine("4) Salir");
                 Console.Write("\r\nSelecciona una opcion: ");
                 switch (Console.ReadLine())
                 {
@@ -43,11 +58,22 @@ namespace A875490.Actividad03
                         Console.ReadLine();
                         break;
                     case "3":
+                        foreach (var Cuentas in plandecuentas)
+                        {
+                            Console.WriteLine(Cuentas.Codigo+"|"+Cuentas.Nombre+"|"+Cuentas.Tipo);                            
+                        }
+                        Console.ReadLine();
+                        break;
+                    case "4":
                         return;
                     default:
                         break;
                 }
             } while (true);
         }
+
+       
+
+
     }
 }
