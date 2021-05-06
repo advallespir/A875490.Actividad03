@@ -70,6 +70,7 @@ namespace A875490.Actividad03
         private static void agregarasiento(List<Cuentas> plandecuentas)
         {
             var asiento = Asientos.Ingresar(plandecuentas);
+            asiento.MostrarAsiento(asiento);
             
         }
 

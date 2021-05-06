@@ -44,7 +44,7 @@ namespace A875490.Actividad03
                 {
                     if (Cuentas.Codigo == codigoint)
                     {
-                        Console.WriteLine("Codigo encontrado!!!!!.");
+                        Console.WriteLine("Codigo encontrado!!!!!. BORRAR DESPUES ES DEBUG");
                         string nombre = Cuentas.Nombre;
                         return codigoint;
                     }
@@ -58,10 +58,20 @@ namespace A875490.Actividad03
             return codigoint;
         }
 
-        internal static bool AgregarMovimiento()
+        internal static void DebeHaber(DateTime fecha)
+        {
+            Console.WriteLine($"       {fecha}       |       Debe       |       Haber       ");
+        }
+
+        internal static void Separador()
+        {
+            Console.WriteLine("========================================================================================================================================================");
+        }
+
+        internal static bool PreguntaSiNo(string text)
         {            
             bool valor;
-                Console.WriteLine("¿Va en la columna del Debe? S/N:");
+                Console.WriteLine(text);
                 valor = !bool.TryParse(Console.ReadLine().ToLower().Replace("si", "true").Replace("s", "true").Replace("no", "false").Replace("n", "false"),out valor);           
             return valor;
         

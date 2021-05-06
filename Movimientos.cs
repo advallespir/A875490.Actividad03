@@ -9,10 +9,7 @@ namespace A875490.Actividad03
 {
     public class Movimientos
     {
-        public Movimientos(object movimiento)
-        {
-            Movimiento = movimiento;
-        }
+        
 
         public Movimientos(int codigo, decimal monto, string nombre, string ncuenta, bool movimiento) 
         {
@@ -20,7 +17,7 @@ namespace A875490.Actividad03
             Monto = monto;
             Nombre = nombre;
             Nombrecuenta = ncuenta;
-            Movimiento = movimiento;
+            TipoMovimiento = movimiento;
         }
 
 
@@ -28,7 +25,7 @@ namespace A875490.Actividad03
         public int Codigo { get; set; }
         public string Nombrecuenta { get; set; }
         public string Nombre { get; set; }
-        public bool Movimiento { get; set; }
+        public bool TipoMovimiento { get; set; }
 
         internal static Movimientos Ingresar(List<Cuentas> plandecuentas)
         {
@@ -44,8 +41,8 @@ namespace A875490.Actividad03
                 }
             }
             decimal monto = Validador.Monto();            
-            string nombre = Validador.AgregarCadena("Por favor ingrese la cuenta", 4,20);
-            bool movimiento = Validador.AgregarMovimiento();
+            string nombre = Validador.AgregarCadena("Por favor ingrese el nombre del asiento", 4,20);
+            bool movimiento = Validador.PreguntaSiNo("¿Va en la columna del Debe? S/N:");
             
 
            
