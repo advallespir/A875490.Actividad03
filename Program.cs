@@ -22,21 +22,15 @@ namespace A875490.Actividad03
 
             Librodiario librodiario = new Librodiario();
             librodiario.crearLibroDiario();
-            
 
-         
+
+
             /*Creo los objetos para el plan de cuentas*/
-           
+            CrearPlanDeCuentas();
           
 
           
-            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "PlanDeCuentas.txt");
-            string[] lines = File.ReadAllLines(filePath);            
-            foreach (string line in lines)
-            {
-                string[] col = line.Split("|");                
-                plandecuentas.Add(new Cuentas(col[0], col[1], col[2]));
-            }     
+
          
 
             do
@@ -72,8 +66,15 @@ namespace A875490.Actividad03
             } while (true);
         }
 
-       
-
-
+        private static void CrearPlanDeCuentas()
+        {
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "PlanDeCuentas.txt");
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (string line in lines)
+            {
+                string[] col = line.Split("|");
+                plandecuentas.Add(new Cuentas(col[0], col[1], col[2]));
+            }
+        }
     }
 }
