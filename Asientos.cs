@@ -12,12 +12,12 @@ namespace A875490.Actividad03
         public DateTime Fecha { get; set; }
 
 
-        public List<Movimientos> movimientos = new List<Movimientos>() { get; set; };
+        public static List<Movimientos> Inserciones  { get; set; }
 
         public Asientos(DateTime fecha, List<Movimientos> movimientos)
         {
             Fecha = fecha;
-            Movimientos = movimientos;
+            Inserciones = movimientos;
         }
 
         internal static Asientos Ingresar(List<Cuentas> plandecuentas)
@@ -28,11 +28,11 @@ namespace A875490.Actividad03
             //Console.WriteLine(fecha.ToShortDateString());
             //Console.ReadLine();
             var movimiento = Movimientos.Ingresar(plandecuentas);
-            
-            movimientos.Add(new Movimientos(movimiento));
+
+            Inserciones.Add(new Movimientos(movimiento));
 
 
-            return new Asientos(fecha,movimientos);
+            return new Asientos(fecha, Inserciones);
         }
     }
 }
