@@ -13,5 +13,6 @@ namespace A875490.Actividad03
         public int codigo { get; set; }
         public string nombre { get; set; }
         public string tipo { get; set; }
+
     }
 }
