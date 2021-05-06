@@ -10,6 +10,7 @@ namespace A875490.Actividad03
     class Program
     {
         static List<Cuentas> plandecuentas = new List<Cuentas>();
+        static List<Asientos> asientos = new List<Asientos>();
         static void Main(string[] args)
         {
             /*Un estudio contable ha contratado a su empresa para la confección de una suite de aplicaciones contables:
@@ -22,7 +23,7 @@ namespace A875490.Actividad03
 
             Librodiario librodiario = new Librodiario();
             librodiario.crearLibroDiario();
-
+            
 
 
             /*Creo los objetos para el plan de cuentas*/
@@ -49,7 +50,7 @@ namespace A875490.Actividad03
                         librodiario.leerlibrodiario();
                         break;
                     case "2":
-                        Console.ReadLine();
+                        agregarasiento();
                         break;
                     case "3":
                         foreach (var Cuentas in plandecuentas)
@@ -64,6 +65,12 @@ namespace A875490.Actividad03
                         break;
                 }
             } while (true);
+        }
+
+        private static void agregarasiento()
+        {
+            var asiento = Asientos.Ingresar();
+            
         }
 
         private static void CrearPlanDeCuentas()
