@@ -10,7 +10,9 @@ namespace A875490.Actividad03
     class Program
     {
         static List<Cuentas> plandecuentas = new List<Cuentas>();
-        static List<Asientos> asientos = new List<Asientos>();
+        static Dictionary<int,Asientos> asientos = new Dictionary<int,Asientos>();
+        static Librodiario librodiario = new Librodiario();
+        static int nAsiento;
         static void Main(string[] args)
         {
             /*Un estudio contable ha contratado a su empresa para la confección de una suite de aplicaciones contables:
@@ -21,18 +23,18 @@ namespace A875490.Actividad03
 
             /*Crea un folder en AppData\Roaming para guardar el libro diario, o lo lee si esta ahi*/
 
-            Librodiario librodiario = new Librodiario();
-            librodiario.crearLibroDiario();
-            
+
+            crearLibroDiario();
+
 
 
             /*Creo los objetos para el plan de cuentas*/
             CrearPlanDeCuentas();
-          
 
-          
 
-         
+
+
+
 
             do
             {
@@ -55,7 +57,7 @@ namespace A875490.Actividad03
                     case "3":
                         foreach (var Cuentas in plandecuentas)
                         {
-                            Console.WriteLine(Cuentas.Codigo+"|"+Cuentas.Nombre+"|"+Cuentas.Tipo);                            
+                            Console.WriteLine(Cuentas.Codigo + "|" + Cuentas.Nombre + "|" + Cuentas.Tipo);
                         }
                         Console.ReadLine();
                         break;
@@ -67,12 +69,42 @@ namespace A875490.Actividad03
             } while (true);
         }
 
+        private static void crearLibroDiario()
+        {
+            string appDataPath;
+            string path;
+            string pathtxt;
+            
+            appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            path = Path.Combine(appDataPath, @"A875490.Actividad03\");
+            pathtxt = path + "librodiario.txt";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+                File.Create(pathtxt);
+            }
+
+            nAsiento++;
+            string[] lines = File.ReadAllLines(pathtxt);
+            foreach (string line in lines)
+            {
+                string[] col = line.Split("|");
+                //DateTime fecha = DateTime.Parse(col[0]);
+
+                //asientos.Add(new Asientos(fecha,));
+                //plandecuentas.Add(new Cuentas(fecha, col[1], col[2]));
+            }
+
+
+        }
+
         private static void agregarasiento(List<Cuentas> plandecuentas)
         {
             Asientos asiento = Asientos.Ingresar(plandecuentas);
-            //asientos.Add(new Asientos(asiento));
+            asientos.Add(nAsiento, asiento);
+
             //asiento.MostrarAsiento(asiento);
-            
+
         }
 
         private static void CrearPlanDeCuentas()

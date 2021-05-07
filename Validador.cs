@@ -34,9 +34,9 @@ namespace A875490.Actividad03
                     Console.WriteLine("Por favor ingrese un codigo numerico.");
                     continue;
                 }
-                if (codigoint > 34 || codigoint < 10)
+                if (codigoint > 34 || codigoint < 11)
                 {
-                    Console.WriteLine("Por favor ingrese un codigo numerico.");
+                    Console.WriteLine("Por favor ingrese un codigo numerico del 11 al 34");
                     continue;
                 }
 
@@ -60,7 +60,12 @@ namespace A875490.Actividad03
 
         internal static void DebeHaber(DateTime fecha)
         {
-            Console.WriteLine($"       {fecha.ToShortDateString()}       |            Tipo de Cuenta       |           Nombre           |       Debe       |       Haber");
+            //Console.WriteLine($"       {fecha.ToShortDateString()}       |            Tipo de Cuenta       |           Nombre           |       Debe       |       Haber");
+            string debe = "debe";
+            string haber = "debe";
+            string tipodecuenta = "Tipo de Cuenta";
+            string movimiento = "Movimiento";
+            Console.WriteLine($"{fecha.ToShortDateString().PadRight(15)}|{tipodecuenta.PadRight(40)}|{movimiento.PadRight(20)}|{debe.PadLeft(20)}|{haber.PadLeft(20)}");
         }
 
         internal static void Separador()
@@ -123,7 +128,7 @@ namespace A875490.Actividad03
             while (true)
             {
                 Console.WriteLine(texto);
-                string ingreso = Console.ReadLine();
+                string ingreso = Console.ReadLine().ToUpperInvariant();
 
                 if (ingreso.Length < largoMin || ingreso.Length > largoMax)
                 {

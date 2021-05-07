@@ -59,7 +59,78 @@ namespace A875490.Actividad03
 
             } while (salir == false);
 
+            //Desea guardar el asiento en archivo?
+            bool guardar = Validador.PreguntaSiNo("Desea guardar el asiento en archivo? S/N");
+            if (guardar == true)
+            {
+                guardarmovimiento(inserciones, fecha);
+            }
+
+
             return new Asientos(fecha, inserciones);
+        }
+
+        private static void guardarmovimiento(List<Movimientos> inserciones, DateTime fecha)
+        {
+            string appDataPath;
+            string path;
+            string pathtxt;
+
+            appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            path = Path.Combine(appDataPath, @"A875490.Actividad03\");
+            pathtxt = path + "librodiario.txt";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+                File.Create(pathtxt);
+            }
+
+
+            StreamWriter w = File.AppendText(pathtxt);
+
+
+
+
+            Validador.Separador();
+            Validador.DebeHaber(fecha);
+            //File.AppendAllText(pathtxt, fecha.ToShortDateString());
+            decimal totaldebe = 0;
+            decimal totalhaber = 0;
+            foreach (var movimiento in inserciones)
+            {
+                decimal haber = 0;
+                decimal debe = 0;
+                if (!movimiento.TipoMovimiento)
+                {
+                    haber = movimiento.Monto;
+                    debe = 0;
+                    string texto = $"{fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}";
+                    //File.AppendAllText(pathtxt, texto + Environment.NewLine);
+                    w.WriteLine(pathtxt);
+                }
+                if (movimiento.TipoMovimiento)
+                {
+                    haber = 0;
+                    debe = movimiento.Monto;
+                    string texto = ($"{fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}");
+                    //File.AppendAllText(pathtxt, texto + Environment.NewLine);
+                    w.WriteLine(pathtxt);
+                }
+                totaldebe = totaldebe + debe;
+                totalhaber = totalhaber + haber;
+
+
+            }
+            string frase = "Total";
+            
+            string texto3 = $"{frase.PadLeft(70)}{totaldebe.ToString().PadLeft(20)}|{totalhaber.ToString().PadLeft(20)}";
+            //File.AppendAllText(pathtxt, texto3 + Environment.NewLine);
+            w.WriteLine(pathtxt);
+
+
+
+
+
         }
 
         private static void mostrarMovimiento(List<Movimientos> inserciones, DateTime fecha)
@@ -67,28 +138,42 @@ namespace A875490.Actividad03
 
             Validador.Separador();
             Validador.DebeHaber(fecha);
+            decimal totaldebe = 0;
+            decimal totalhaber = 0;            
             foreach (var movimiento in inserciones)
             {
-                
+                decimal haber = 0;
+                decimal debe = 0;
                 if (!movimiento.TipoMovimiento)
                 {
-                    Console.WriteLine($"                     |       {movimiento.Nombrecuenta}       |       {movimiento.Nombre}       |                               |      ${movimiento.Monto}");
+                    haber = movimiento.Monto;
+                    debe = 0;
+                    Console.WriteLine($"{fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}");
+                    
                 }
                 if (movimiento.TipoMovimiento)
                 {
-                    Console.WriteLine($"                     |       {movimiento.Nombrecuenta}       |       {movimiento.Nombre}       |      ${movimiento.Monto}       |");
+                    haber = 0;
+                    debe = movimiento.Monto;
+                    Console.WriteLine($"{fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}");
+                    
                 }
+                totaldebe = totaldebe + debe;
+                totalhaber = totalhaber + haber;
+                
 
             }
-            
+            string frase = "Total";
+            Validador.Separador();
+            Console.WriteLine($"{frase.PadLeft(70)}{totaldebe.ToString().PadLeft(20)}|{totalhaber.ToString().PadLeft(20)}");
         }
 
-        internal void MostrarAsiento(Asientos asiento)
+        internal void MostrarAsiento()
         {
-            Console.WriteLine(asiento.Fecha);
-
+          
+            
+        }
 
 
         }
     }
-}
