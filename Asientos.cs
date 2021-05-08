@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace A875490.Actividad03
@@ -84,6 +85,8 @@ namespace A875490.Actividad03
                 Directory.CreateDirectory(path);
                 File.Create(pathtxt);
             }
+            TimeSpan interval = new TimeSpan(0, 0, 3);
+            Thread.Sleep(interval);
 
 
             StreamWriter w = File.AppendText(pathtxt);
@@ -104,17 +107,19 @@ namespace A875490.Actividad03
                 {
                     haber = movimiento.Monto;
                     debe = 0;
-                    string texto = $"{fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}";
+                    string texto = $"{fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}\n";
                     //File.AppendAllText(pathtxt, texto + Environment.NewLine);
-                    w.WriteLine(pathtxt);
+                    w.WriteLine(texto);
+                    w.Close();
                 }
                 if (movimiento.TipoMovimiento)
                 {
                     haber = 0;
                     debe = movimiento.Monto;
-                    string texto = ($"{fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}");
+                    string texto = ($"{fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}\n");
                     //File.AppendAllText(pathtxt, texto + Environment.NewLine);
-                    w.WriteLine(pathtxt);
+                    w.WriteLine(texto);
+                    w.Close();
                 }
                 totaldebe = totaldebe + debe;
                 totalhaber = totalhaber + haber;
@@ -122,11 +127,11 @@ namespace A875490.Actividad03
 
             }
             string frase = "Total";
-            
-            string texto3 = $"{frase.PadLeft(70)}{totaldebe.ToString().PadLeft(20)}|{totalhaber.ToString().PadLeft(20)}";
-            //File.AppendAllText(pathtxt, texto3 + Environment.NewLine);
-            w.WriteLine(pathtxt);
 
+            string texto3 = $"{frase.PadLeft(70)}{totaldebe.ToString().PadLeft(20)}|{totalhaber.ToString().PadLeft(20)}\n";
+            //File.AppendAllText(pathtxt, texto3 + Environment.NewLine);
+            w.WriteLine(texto3);
+            w.Close();
 
 
 

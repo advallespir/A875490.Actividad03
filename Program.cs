@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace A875490.Actividad03
@@ -80,8 +81,11 @@ namespace A875490.Actividad03
             pathtxt = path + "librodiario.txt";
             if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(path);                
                 File.Create(pathtxt);
+                TimeSpan interval = new TimeSpan(0, 0, 3);
+                Thread.Sleep(interval);
+                
             }
 
             nAsiento++;
