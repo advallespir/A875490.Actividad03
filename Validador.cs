@@ -58,14 +58,14 @@ namespace A875490.Actividad03
             return codigoint;
         }
 
-        internal static void DebeHaber(DateTime fecha)
+        internal static void DebeHaber(DateTime fecha, int nAsiento)
         {
             //Console.WriteLine($"       {fecha.ToShortDateString()}       |            Tipo de Cuenta       |           Nombre           |       Debe       |       Haber");
             string debe = "debe";
             string haber = "debe";
             string tipodecuenta = "Tipo de Cuenta";
             string movimiento = "Movimiento";
-            Console.WriteLine($"{fecha.ToShortDateString().PadRight(15)}|{tipodecuenta.PadRight(40)}|{movimiento.PadRight(20)}|{debe.PadLeft(20)}|{haber.PadLeft(20)}");
+            Console.WriteLine($"Asiento: {nAsiento} {fecha.ToShortDateString().PadRight(3)}|{tipodecuenta.PadRight(40)}|{movimiento.PadRight(20)}|{debe.PadLeft(20)}|{haber.PadLeft(15)}");
         }
 
         internal static void Separador()
@@ -140,8 +140,10 @@ namespace A875490.Actividad03
             }
         }
 
-
-
+        /*internal static void DebeHaber(DateTime fecha)
+        {
+            throw new NotImplementedException();
+        }*/
     }
 
 }

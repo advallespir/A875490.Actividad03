@@ -13,7 +13,7 @@ namespace A875490.Actividad03
         static List<Cuentas> plandecuentas = new List<Cuentas>();
         static Dictionary<int,Asientos> asientos = new Dictionary<int,Asientos>();
         static Librodiario librodiario = new Librodiario();
-        static int nAsiento;
+        static int nAsiento = 0;
         static void Main(string[] args)
         {
             /*Un estudio contable ha contratado a su empresa para la confección de una suite de aplicaciones contables:
@@ -24,8 +24,8 @@ namespace A875490.Actividad03
 
             /*Crea un folder en AppData\Roaming para guardar el libro diario, o lo lee si esta ahi*/
 
-
-            crearLibroDiario();
+            librodiario.crearLibroDiario();
+            //crearLibroDiario();
 
 
 
@@ -43,9 +43,9 @@ namespace A875490.Actividad03
                 Console.WriteLine("Bienvenido a estudio contable.");
                 Console.WriteLine("Por favor seleccione alguna de las opciones para operar.");
                 Console.WriteLine("1) Ver libro diario");
-                Console.WriteLine("2) Añadir asiento");
-                Console.WriteLine("3) Leer plan de cuentas");
-                Console.WriteLine("4) Salir");
+                Console.WriteLine("1) Añadir asiento");
+                Console.WriteLine("2) Leer plan de cuentas");
+                Console.WriteLine("3) Salir");
                 Console.Write("\r\nSelecciona una opcion: ");
                 switch (Console.ReadLine())
                 {
@@ -53,7 +53,8 @@ namespace A875490.Actividad03
                         librodiario.leerlibrodiario();
                         break;
                     case "2":
-                        agregarasiento(plandecuentas);
+                        nAsiento++;
+                        agregarasiento(plandecuentas, nAsiento);
                         break;
                     case "3":
                         foreach (var Cuentas in plandecuentas)
@@ -102,9 +103,10 @@ namespace A875490.Actividad03
 
         }
 
-        private static void agregarasiento(List<Cuentas> plandecuentas)
+        private static void agregarasiento(List<Cuentas> plandecuentas, int nAsiento)
         {
-            Asientos asiento = Asientos.Ingresar(plandecuentas);
+
+            Asientos asiento = Asientos.Ingresar(plandecuentas,nAsiento);
             asientos.Add(nAsiento, asiento);
 
             //asiento.MostrarAsiento(asiento);

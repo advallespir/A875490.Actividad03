@@ -21,7 +21,7 @@ namespace A875490.Actividad03
             Inserciones = inserciones;
         }
 
-        internal static Asientos Ingresar(List<Cuentas> plandecuentas)
+        internal static Asientos Ingresar(List<Cuentas> plandecuentas, int nAsiento)
 
         {
             List<Movimientos> inserciones = new List<Movimientos>();
@@ -40,7 +40,7 @@ namespace A875490.Actividad03
                 Movimientos movimiento = Movimientos.Ingresar(plandecuentas);
                 inserciones.Add(movimiento);
 
-                mostrarMovimiento(inserciones,fecha);
+                mostrarMovimiento(inserciones,fecha,nAsiento);
 
 
                 if (movimiento.TipoMovimiento)
@@ -64,14 +64,14 @@ namespace A875490.Actividad03
             bool guardar = Validador.PreguntaSiNo("Desea guardar el asiento en archivo? S/N");
             if (guardar == true)
             {
-                guardarmovimiento(inserciones, fecha);
+                guardarmovimiento(inserciones, fecha, nAsiento);
             }
 
 
             return new Asientos(fecha, inserciones);
         }
 
-        private static void guardarmovimiento(List<Movimientos> inserciones, DateTime fecha)
+        private static void guardarmovimiento(List<Movimientos> inserciones, DateTime fecha, int nAsiento)
         {
             string appDataPath;
             string path;
@@ -80,22 +80,17 @@ namespace A875490.Actividad03
             appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             path = Path.Combine(appDataPath, @"A875490.Actividad03\");
             pathtxt = path + "librodiario.txt";
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-                File.Create(pathtxt);
-            }
-            TimeSpan interval = new TimeSpan(0, 0, 3);
-            Thread.Sleep(interval);
+            //if (!Directory.Exists(path))
+            //{
+            //    Directory.CreateDirectory(path);
+            //    File.Create(pathtxt);
+            //}
+
 
 
             StreamWriter w = File.AppendText(pathtxt);
-
-
-
-
             Validador.Separador();
-            Validador.DebeHaber(fecha);
+            Validador.DebeHaber(fecha,nAsiento);
             //File.AppendAllText(pathtxt, fecha.ToShortDateString());
             decimal totaldebe = 0;
             decimal totalhaber = 0;
@@ -107,10 +102,11 @@ namespace A875490.Actividad03
                 {
                     haber = movimiento.Monto;
                     debe = 0;
-                    string texto = $"{fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}\n";
+                    string texto = ($" {fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}\n");
                     //File.AppendAllText(pathtxt, texto + Environment.NewLine);
+                    //StreamWriter w = File.AppendText(pathtxt);
                     w.WriteLine(texto);
-                    w.Close();
+                    //w.Close();
                 }
                 if (movimiento.TipoMovimiento)
                 {
@@ -118,8 +114,9 @@ namespace A875490.Actividad03
                     debe = movimiento.Monto;
                     string texto = ($"{fecha.ToShortDateString().PadRight(15)}|{movimiento.Nombrecuenta.PadRight(40)}|{movimiento.Nombre.PadRight(20)}|{debe.ToString().PadLeft(20)}|{haber.ToString().PadLeft(20)}\n");
                     //File.AppendAllText(pathtxt, texto + Environment.NewLine);
+                    //StreamWriter w = File.AppendText(pathtxt);
                     w.WriteLine(texto);
-                    w.Close();
+                    //w.Close();
                 }
                 totaldebe = totaldebe + debe;
                 totalhaber = totalhaber + haber;
@@ -128,8 +125,9 @@ namespace A875490.Actividad03
             }
             string frase = "Total";
 
-            string texto3 = $"{frase.PadLeft(70)}{totaldebe.ToString().PadLeft(20)}|{totalhaber.ToString().PadLeft(20)}\n";
+            string texto3 = $"Asiento: {nAsiento}{frase.PadLeft(65)}{totaldebe.ToString().PadLeft(20)}|{totalhaber.ToString().PadLeft(20)}\n";
             //File.AppendAllText(pathtxt, texto3 + Environment.NewLine);
+            //StreamWriter w = File.AppendText(pathtxt);
             w.WriteLine(texto3);
             w.Close();
 
@@ -138,11 +136,11 @@ namespace A875490.Actividad03
 
         }
 
-        private static void mostrarMovimiento(List<Movimientos> inserciones, DateTime fecha)
+        private static void mostrarMovimiento(List<Movimientos> inserciones, DateTime fecha, int nAsiento)
         {
 
             Validador.Separador();
-            Validador.DebeHaber(fecha);
+            Validador.DebeHaber(fecha, nAsiento);
             decimal totaldebe = 0;
             decimal totalhaber = 0;            
             foreach (var movimiento in inserciones)

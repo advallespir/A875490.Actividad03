@@ -25,16 +25,27 @@ namespace A875490.Actividad03
             pathtxt = path + "librodiario.txt";
             if (!Directory.Exists(path))
             {
-                Directory.CreateDirectory(path);                
-                File.Create(pathtxt);
+                Directory.CreateDirectory(path);
+                StreamWriter w = File.CreateText(pathtxt);
+                w.WriteLine(" ");
+                w.Close();
             }
 
         }
 
         internal void leerlibrodiario()
         {
-            var archivo = File.ReadAllText(pathtxt);
-            Console.WriteLine(archivo);
+            appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            path = Path.Combine(appDataPath, @"A875490.Actividad03\");
+            pathtxt = path + "librodiario.txt";
+            
+            //StreamReader w = new StreamReader(pathtxt);
+            //Console.WriteLine(w.ReadToEnd);
+            string texto = File.ReadAllText(pathtxt);
+            Console.WriteLine(texto);     
+            //w.Close;
+            //var archivo = File.ReadAllText(pathtxt);
+            //Console.WriteLine(archivo);            
             Console.ReadLine();
         }
     }
