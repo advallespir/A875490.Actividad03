@@ -44,7 +44,7 @@ namespace A875490.Actividad03
                 {
                     if (Cuentas.Codigo == codigoint)
                     {
-                        Console.WriteLine("Codigo encontrado!!!!!. BORRAR DESPUES ES DEBUG");
+                        //Console.WriteLine("Codigo encontrado!!!!!. BORRAR DESPUES ES DEBUG");
                         string nombre = Cuentas.Nombre;
                         return codigoint;
                     }

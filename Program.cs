@@ -43,9 +43,9 @@ namespace A875490.Actividad03
                 Console.WriteLine("Bienvenido a estudio contable.");
                 Console.WriteLine("Por favor seleccione alguna de las opciones para operar.");
                 Console.WriteLine("1) Ver libro diario");
-                Console.WriteLine("1) Añadir asiento");
-                Console.WriteLine("2) Leer plan de cuentas");
-                Console.WriteLine("3) Salir");
+                Console.WriteLine("2) Añadir asiento");
+                Console.WriteLine("3) Leer plan de cuentas");
+                Console.WriteLine("4) Salir");
                 Console.Write("\r\nSelecciona una opcion: ");
                 switch (Console.ReadLine())
                 {
